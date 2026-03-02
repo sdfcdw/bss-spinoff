@@ -25486,7 +25486,7 @@ function BeeSwarmSimulator(DATA){
         out.flowerIn={}
         out._flowerIn={}
         out.pollen=0
-        out.honey=0
+        out.honey=10000000000000
         
         out.cameraRaycastPoint=new CANNON.Vec3()
         out.cameraRaycastResult=new CANNON.RaycastResult()
@@ -34758,4 +34758,5 @@ function BeeSwarmSimulator(DATA){
         window.objects=objects
     }
     
+
 }
