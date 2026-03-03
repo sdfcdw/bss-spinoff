@@ -25,46 +25,7 @@ function main(){
         })
     }
 
-    // At the VERY TOP of index.js, right after "function main(){"
-console.log("🚀 GAME STARTING - FORCING ITEMS");
-
-// Store the original function
-const originalMain = main;
-
-// Override main
-main = function() {
-    // Call original
-    originalMain();
-    
-    // Wait and then force items
-    setTimeout(() => {
-        console.log("💥 FORCING ITEMS TO 10000");
-        
-        // Try to access the game instance
-        for (let key in window) {
-            try {
-                if (window[key] && window[key].items) {
-                    console.log("Found items at window." + key);
-                    let items = window[key].items;
-                    
-                    // Set all to 10000
-                    for (let item in items) {
-                        if (items[item] && items[item].amount !== undefined) {
-                            items[item].amount = 10000;
-                        }
-                    }
-                    
-                    // Update
-                    if (window[key].updateInventory) {
-                        window[key].updateInventory();
-                    }
-                    
-                    console.log("✅ DONE!");
-                }
-            } catch(e) {}
-        }
-    }, 2000);
-};
+   
     
     async function loadFromDB(id) {
     
@@ -25527,7 +25488,7 @@ function BeeSwarmSimulator(DATA){
         out.flowerIn={}
         out._flowerIn={}
         out.pollen=0
-        out.honey=1000000000000000000
+        out.honey=1000000000000000000000
         
         out.cameraRaycastPoint=new CANNON.Vec3()
         out.cameraRaycastResult=new CANNON.RaycastResult()
@@ -34801,3 +34762,4 @@ function BeeSwarmSimulator(DATA){
     
 
 }
+
