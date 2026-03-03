@@ -34762,50 +34762,44 @@ function BeeSwarmSimulator(DATA){
 }
 // ===== AT THE VERY BOTTOM OF index.js =====
 
-// Override starting items for new games
-(function() {
-    // Wait a tiny bit for everything to initialize
+// Save the original function
+const originalBeeSwarmSimulator = window.BeeSwarmSimulator;
+
+// Override it
+window.BeeSwarmSimulator = function(DATA) {
+    console.log("🎮 Game starting...");
+    
+    // Call the original function
+    const result = originalBeeSwarmSimulator.apply(this, arguments);
+    
+    // Now we can access items and player!
     setTimeout(() => {
         // Check if this is a new game
-        if (window.player && !window.player._loadedFromSave) {
-            console.log("🎁 Setting all items to 10,000...");
+        if (!DATA || !DATA.saveCode) {
+            console.log("🎁 Setting up new game with 10,000 items...");
             
-            // List of all items
-            let allItems = [
-                'ticket', 'royalJelly', 'starJelly', 'treat', 'blueberry', 
-                'strawberry', 'pineapple', 'sunflowerSeed', 'gumdrops', 
-                'stinger', 'coconut', 'moonCharm', 'glue', 'oil', 'enzymes',
-                'redExtract', 'blueExtract', 'glitter', 'magicBean', 'fieldDice',
-                'smoothDice', 'loadedDice', 'microConverter', 'honeysuckle',
-                'whirligig', 'bitterberry', 'neonberry', 'atomicTreat',
-                'starTreat', 'gingerbreadBear', 'snowflake', 'antPass',
-                'roboPass', 'cloudVial', 'jellyBeans', 'softWax', 'hardWax',
-                'swirledWax', 'causticWax', 'turpentine', 'purplePotion',
-                'superSmoothie', 'tropicalDrink', 'basicEgg', 'silverEgg',
-                'goldEgg', 'diamondEgg', 'mythicEgg', 'giftedSilverEgg',
-                'giftedGoldEgg', 'giftedDiamondEgg', 'giftedMythicEgg',
-                'starEgg', 'pinkBalloon', 'redBalloon', 'whiteBalloon',
-                'blackBalloon', 'festiveBean'
-            ];
-            
-            // Set each item to 10000
-            for (let itemName of allItems) {
-                if (window.items && window.items[itemName]) {
-                    window.items[itemName].amount = 10000;
+            // Try to find items in the global scope
+            if (window.items) {
+                console.log("Found items!");
+                for (let key in window.items) {
+                    if (window.items[key] && typeof window.items[key] === 'object') {
+                        if (window.items[key].amount !== undefined) {
+                            window.items[key].amount = 10000;
+                        }
+                    }
                 }
             }
             
-            // Update display
+            // Try to update the display
             if (window.player && window.player.updateInventory) {
                 window.player.updateInventory();
             }
             
-            console.log("✅ Done! All items set to 10,000!");
-            
-            // Mark that we've done this so it doesn't run again
-            window.player._loadedFromSave = true;
+            console.log("✅ Items set to 10,000!");
         }
-    }, 500); // Wait 500ms for game to load
-})();
-  
+    }, 1000);
+    
+    return result;
+};
 
+console.log("🎮 Game override installed!");
