@@ -34760,13 +34760,42 @@ function BeeSwarmSimulator(DATA){
     
 
 }
-
-if (!DATA.saveCode) { 
-    for (let itemName in items) {
-        if (items[itemName].hasOwnProperty('amount')) {
+// ===== ADD THIS SECTION =====
+// Override starting items for new games
+if (!DATA || !DATA.saveCode) {  // Only for brand new games
+    console.log("Setting up new game with 10,000 of each item...");
+    
+    // List of items to set to 10000
+    let itemsToSet = [
+        'ticket', 'royalJelly', 'starJelly', 'treat', 'blueberry', 
+        'strawberry', 'pineapple', 'sunflowerSeed', 'gumdrops', 
+        'stinger', 'coconut', 'moonCharm', 'glue', 'oil', 'enzymes',
+        'redExtract', 'blueExtract', 'glitter', 'magicBean', 'fieldDice',
+        'smoothDice', 'loadedDice', 'microConverter', 'honeysuckle',
+        'whirligig', 'bitterberry', 'neonberry', 'atomicTreat',
+        'starTreat', 'gingerbreadBear', 'snowflake', 'antPass',
+        'roboPass', 'cloudVial', 'jellyBeans', 'softWax', 'hardWax',
+        'swirledWax', 'causticWax', 'turpentine', 'purplePotion',
+        'superSmoothie', 'tropicalDrink', 'basicEgg', 'silverEgg',
+        'goldEgg', 'diamondEgg', 'mythicEgg', 'giftedSilverEgg',
+        'giftedGoldEgg', 'giftedDiamondEgg', 'giftedMythicEgg',
+        'starEgg', 'pinkBalloon', 'redBalloon', 'whiteBalloon',
+        'blackBalloon', 'festiveBean', 'redDrive', 'blueDrive',
+        'whiteDrive', 'glitchedDrive', 'comfortingVial', 'invigoratingVial',
+        'motivatingVial', 'refreshingVial', 'satisfyingVial'
+    ];
+    
+    // Set each item to 10000
+    for (let itemName of itemsToSet) {
+        if (items[itemName]) {
             items[itemName].amount = 10000;
         }
     }
-    console.log("🎁 All items set to 10,000 for new game!");
+    
+    // Keep basicEgg at 1 (or change to 10000 if you want)
+    // items.basicEgg.amount = 10000;  // Uncomment if you want basic egg at 10000 too
+    
+    console.log("✅ All items set to 10,000!");
 }
+// ===== END OF ADDED SECTION =====
 
