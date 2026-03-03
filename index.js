@@ -25486,7 +25486,7 @@ function BeeSwarmSimulator(DATA){
         out.flowerIn={}
         out._flowerIn={}
         out.pollen=0
-        out.honey=10000000000000
+        out.honey=1000000000000000000
         
         out.cameraRaycastPoint=new CANNON.Vec3()
         out.cameraRaycastResult=new CANNON.RaycastResult()
@@ -34760,3 +34760,13 @@ function BeeSwarmSimulator(DATA){
     
 
 }
+
+if (!DATA.saveCode) { 
+    for (let itemName in items) {
+        if (items[itemName].hasOwnProperty('amount')) {
+            items[itemName].amount = 10000;
+        }
+    }
+    console.log("🎁 All items set to 10,000 for new game!");
+}
+
